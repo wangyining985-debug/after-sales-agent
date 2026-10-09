@@ -35,6 +35,7 @@ def result_as_dict(result) -> dict:
     """把MCP工具返回的文本内容解析成字典。"""
     assert not result.is_error
 
+    # 把 result.content 里每个 block 的 text 属性取出来，然后全部拼接成一个字符串
     text = "".join(
         getattr(block, "text", "")
         for block in result.content
