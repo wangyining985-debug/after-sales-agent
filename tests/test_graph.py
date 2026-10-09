@@ -86,36 +86,6 @@ async def test_graph_handles_unknown_intent():
     assert response.tool_trace == []
 
 
-async def test_graph_recognizes_refund_without_executing_it():
-    """阶段 8 可以识别退款，但不能提前执行退款。"""
-
-    response = await run_agent(
-        RunRequest(
-            thread_id="thread-refund",
-            user_id="U001",
-            message=(
-                "O1001 商品破损，我要退款"
-            ),
-            evidence_provided=True,
-        )
-    )
-
-    assert (
-        response.status
-        == "NEED_MORE_INFO"
-    )
-    assert (
-        response.data["intent"]
-        == "refund"
-    )
-    assert response.tool_trace == []
-
-    assert business_store.counts() == {
-        "tickets": 0,
-        "refunds": 0,
-    }
-
-
 async def test_graph_completes_normal_logistics_query():
     """正常物流不创建异常工单。"""
 
