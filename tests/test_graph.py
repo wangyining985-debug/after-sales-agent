@@ -3,7 +3,7 @@ import pytest
 from mini_after_sales.domain import (
     RunRequest,
 )
-from mini_after_sales.graph import (
+from mini_after_sales.runtime import (
     agent_graph,
     run_agent,
 )

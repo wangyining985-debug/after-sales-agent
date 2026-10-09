@@ -4,7 +4,7 @@ from mini_after_sales.domain import (
     ApprovalRequest,
     RunRequest,
 )
-from mini_after_sales.graph import (
+from mini_after_sales.runtime import (
     agent_graph,
     resume_agent,
     run_agent,

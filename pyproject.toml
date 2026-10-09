@@ -8,6 +8,9 @@ dependencies = [
   "mcp>=2.0,<3",
   "fastapi>=0.116,<1",
   "uvicorn>=0.35,<1",
+  "pydantic-settings>=2.10,<3",
+  "langgraph-checkpoint-postgres>=3.0,<4",
+  "psycopg[binary,pool]>=3.2,<4",
 ]
 
 [dependency-groups]

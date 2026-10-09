@@ -1,0 +1,21 @@
+services:
+  checkpoint-postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: agent
+      POSTGRES_PASSWORD: agent
+      POSTGRES_DB: after_sales
+    ports:
+      - "5432:5432"
+    volumes:
+      - checkpoint-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U agent -d after_sales
+      interval: 2s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  checkpoint-postgres-data:
