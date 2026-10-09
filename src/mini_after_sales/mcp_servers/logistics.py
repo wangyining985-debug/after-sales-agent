@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from typing import Any
 
+from mcp.server import MCPServer
 from pydantic import BaseModel, Field
 
 from mini_after_sales.store import business_store
 
+mcp = MCPServer("logistics-service")
 
 class ShipmentQuery(BaseModel):
     """物流查询参数。"""
@@ -14,7 +16,7 @@ class ShipmentQuery(BaseModel):
         pattern=r"^O\d{3,20}$"
     )
 
-
+@mcp.tool()
 def get_tracking_events(
     query: ShipmentQuery,
 ) -> dict[str, Any]:
@@ -28,7 +30,7 @@ def get_tracking_events(
 
     return shipment
 
-
+@mcp.tool()
 def detect_logistics_exception(
     query: ShipmentQuery,
 ) -> dict[str, Any]:

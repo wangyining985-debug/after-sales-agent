@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from mcp.server import MCPServer
 from pydantic import BaseModel, Field
 
 from mini_after_sales.domain import (
@@ -11,6 +12,7 @@ from mini_after_sales.store import (
     business_store,
 )
 
+mcp = MCPServer("ticket-service")
 
 class TicketCreation(BaseModel):
     """创建工单的参数。"""
@@ -39,7 +41,7 @@ class TicketCreation(BaseModel):
         max_length=128,
     )
 
-
+@mcp.tool()
 def create_ticket(
     command: TicketCreation,
 ) -> dict[str, Any]:
@@ -68,7 +70,7 @@ def create_ticket(
         ),
     )
 
-
+@mcp.tool()
 def submit_refund(
     command: RefundSubmission,
 ) -> dict[str, Any]:

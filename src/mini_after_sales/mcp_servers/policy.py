@@ -2,8 +2,10 @@ from __future__ import annotations
 
 from typing import Any, Literal
 
+from mcp.server import MCPServer
 from pydantic import BaseModel, Field
 
+mcp = MCPServer("policy-service")
 
 class EligibilityQuery(BaseModel):
     """退款资格查询参数。"""
@@ -34,7 +36,7 @@ class RefundCalculation(BaseModel):
         gt=0,
     )
 
-
+@mcp.tool()
 def check_return_eligibility(
     query: EligibilityQuery,
 ) -> dict[str, Any]:
@@ -76,7 +78,7 @@ def check_return_eligibility(
         "approval_required": True,
     }
 
-
+@mcp.tool()
 def calculate_refund(
     query: RefundCalculation,
 ) -> dict[str, Any]:

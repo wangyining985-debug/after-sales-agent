@@ -2,10 +2,14 @@ from __future__ import annotations
 
 from typing import Any
 
+from mcp.server import MCPServer
+
 from mini_after_sales.domain import OrderQuery
 from mini_after_sales.store import business_store
 
+mcp = MCPServer("order-service")
 
+@mcp.tool()
 def get_order(
     query: OrderQuery,
 ) -> dict[str, Any]:
@@ -24,7 +28,7 @@ def get_order(
 
     return order
 
-
+@mcp.tool()
 def get_payment_status(
     query: OrderQuery,
 ) -> dict[str, Any]:
